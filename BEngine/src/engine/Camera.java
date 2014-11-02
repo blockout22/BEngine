@@ -10,7 +10,7 @@ public class Camera {
 	private Matrix4f modelMatrix, viewMatrix, projectionMatrix;
 	private Vector3f modelPos, modelAngle, modelScale, cameraPos;
 
-	private boolean isJumping = false;
+//	private boolean isJumping = false;
 
 	// private CollisionCube cc;
 	// private Mesh mesh;
@@ -18,9 +18,9 @@ public class Camera {
 	private ArrayList<Vector3f> startPositions = new ArrayList<Vector3f>();
 	private ArrayList<Vector3f> endPositions = new ArrayList<Vector3f>();
 
-	private float scaleDelta = 0.1f;
-	private Vector3f scaleAddResolution = new Vector3f(scaleDelta, scaleDelta, scaleDelta);
-	private Vector3f scaleMinusResolution = new Vector3f(-scaleDelta, -scaleDelta, -scaleDelta);
+//	private float scaleDelta = 0.1f;
+//	private Vector3f scaleAddResolution = new Vector3f(scaleDelta, scaleDelta, scaleDelta);
+//	private Vector3f scaleMinusResolution = new Vector3f(-scaleDelta, -scaleDelta, -scaleDelta);
 
 	private boolean canMoveXPlus, canMoveXMinus, canMoveYPlus, canMoveYMinus, canMoveZPlus, canMoveZMinus;
 
@@ -265,8 +265,13 @@ public class Camera {
 	public Matrix4f getProjectionMatrix() {
 		return projectionMatrix;
 	}
+	
+	public Vector3f getCameraPos()
+	{
+		return cameraPos;
+	}
 
-	public String getCameraPos() {
+	public String getCameraPosAsString() {
 		return "X: " + cameraPos.getX() + " Y: " + cameraPos.getY() + " Z: " + cameraPos.getZ();
 	}
 }
