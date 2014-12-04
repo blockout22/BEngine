@@ -13,17 +13,17 @@ public class Storage {
 	private static ArrayList<Integer> vbos = new ArrayList<Integer>();
 	private static ArrayList<Integer> textures = new ArrayList<Integer>();
 	
-	protected static void addVAO(int vao)
+	public static void addVAO(int vao)
 	{
 		vaos.add(vao);
 	}
 	
-	protected static void addVBO(int vbo)
+	public static void addVBO(int vbo)
 	{
 		vbos.add(vbo);
 	}
 	
-	protected static int addVAO()
+	public static int addVAO()
 	{
 		int vao = GL30.glGenVertexArrays();
 		vaos.add(vao);
@@ -31,7 +31,7 @@ public class Storage {
 		return vao;
 	}
 	
-	protected static int addVBO()
+	public static int addVBO()
 	{
 		int vbo = GL15.glGenBuffers();
 		vbos.add(vbo);
@@ -39,7 +39,7 @@ public class Storage {
 		return vbo;
 	}
 	
-	protected static void addTexture(int texture)
+	public static void addTexture(int texture)
 	{
 		textures.add(texture);
 	}

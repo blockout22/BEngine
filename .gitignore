@@ -2,7 +2,6 @@
 lib/
 *.project
 *.jar
-*.zip
 *.classpath
 *.settings
 image0.png

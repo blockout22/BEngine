@@ -7,7 +7,7 @@ import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
 public class Camera {
-	
+
 	private float moveSpeed = 0.2f;
 
 	private Vector3f position = new Vector3f(0, 0, 0);
@@ -18,7 +18,7 @@ public class Camera {
 	private float ASPECT_RATIO;
 	private float Z_NEAR;
 	private float Z_FAR;
-	
+
 	private Matrix4f projectionMatrix;
 
 	public Camera(float fov, float aspectRatio, float z_near, float z_far) {
@@ -26,18 +26,16 @@ public class Camera {
 		this.ASPECT_RATIO = aspectRatio;
 		this.Z_NEAR = z_near;
 		this.Z_FAR = z_far;
-		
+
 		createProjectionMatrix();
 	}
-	
-	public void moveDirection(float amount, float direction)
-    {
-        position.z += amount * Math.sin(Math.toRadians(calculateAngle(yaw) + 90 * direction));
-        position.x += amount * Math.cos(Math.toRadians(calculateAngle(yaw) + 90 * direction));
-    }
-	
-	public void move()
-	{
+
+	public void moveDirection(float amount, float direction) {
+		position.z += amount * Math.sin(Math.toRadians(calculateAngle(yaw) + 90 * direction));
+		position.x += amount * Math.cos(Math.toRadians(calculateAngle(yaw) + 90 * direction));
+	}
+
+	public void move() {
 		if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
 			position.x += Math.sin(yaw * Math.PI / 180) * moveSpeed;
 			position.z += -Math.cos(yaw * Math.PI / 180) * moveSpeed;
@@ -61,57 +59,57 @@ public class Camera {
 		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
 			position.y += moveSpeed;
 		}
-		
-		if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL))
-		{
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
 			position.y -= moveSpeed;
 		}
-		
-		if(Mouse.isButtonDown(2))
-		{
-			changePitch(Mouse.getDY() * 0.1f);
+		if (Mouse.isButtonDown(2)) {
+//			changeYaw(Mouse.getDX() * 0.1f);
+			rotate();
+			Mouse.setGrabbed(true);
+		} else {
+			Mouse.setGrabbed(false);
 		}
-		
-		if(Mouse.isButtonDown(2))
-		{
-			changeYaw(Mouse.getDX() * 0.1f);
-		}
-		
-		if(pitch > 89)
-		{
+
+		if (pitch > 89) {
 			pitch = 89;
 		}
-		
-		if(pitch < -89)
-		{
+
+		if (pitch < -89) {
 			pitch = -89;
 		}
 	}
 	
-	public void changeYaw(float amount)
+	public void rotate()
 	{
+		float mouseDX = Mouse.getDX();
+		float mouseDY = Mouse.getDY();
+		
+		changePitch(mouseDY * 0.1f);
+		changeYaw(mouseDX * 0.1f);
+		
+	}
+
+	public void changeYaw(float amount) {
 		this.yaw += amount;
 	}
-	
-	public void changePitch(float amount)
-	{
+
+	public void changePitch(float amount) {
 		this.pitch -= amount;
 	}
-	
-	private  float calculateAngle(float yaw)
-	{
+
+	private float calculateAngle(float yaw) {
 		float angle = (yaw / 720) * 360;
-		
+
 		return angle;
 	}
-	
-	private void createProjectionMatrix()
-	{
-		float aspectRatio = (float)Display.getWidth() / (float)Display.getHeight();
+
+	private void createProjectionMatrix() {
+		float aspectRatio = (float) Display.getWidth() / (float) Display.getHeight();
 		float y_scale = 1f / (float) Math.tan(Math.toRadians(FIELD_OF_VIEW / 2f)) * aspectRatio;
 		float x_scale = y_scale / aspectRatio;
 		float frustum_length = Z_FAR - Z_NEAR;
-		
+
 		projectionMatrix = new Matrix4f();
 		projectionMatrix.m00 = x_scale;
 		projectionMatrix.m11 = y_scale;
@@ -120,7 +118,7 @@ public class Camera {
 		projectionMatrix.m32 = -((2 * Z_NEAR * Z_FAR) / frustum_length);
 		projectionMatrix.m33 = 0;
 	}
-	
+
 	public Matrix4f getProjectionMatrix() {
 		return projectionMatrix;
 	}

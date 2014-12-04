@@ -12,6 +12,7 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
+import engine.Storage;
 import engine.Util;
 import engine.camera.Camera;
 import engine.entity.Entity;
@@ -32,10 +33,10 @@ public class Mesh {
 	private Shader shader;
 
 	public Mesh(int projectionMatrix_Location, Shader shader, String textureFile, Camera camera) {
-		vaoID = GL30.glGenVertexArrays();
-		vboID = GL15.glGenBuffers();
-		vboTextureID = GL15.glGenBuffers();
-		vboiID = GL15.glGenBuffers();
+		vaoID = Storage.addVAO();
+		vboID = Storage.addVBO();
+		vboTextureID = Storage.addVBO();
+		vboiID = Storage.addVBO();
 
 		textureID = loadTexture(textureFile);
 
@@ -126,6 +127,7 @@ public class Mesh {
 		}
 
 		textureID = texture.getTextureID();
+		Storage.addTexture(textureID);
 		System.out.println("TexturedMesh TextureID: " + textureID);
 		return textureID;
 	}

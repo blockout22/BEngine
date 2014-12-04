@@ -75,7 +75,7 @@ public class TexturedMesh {
 		GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 	
-	public void drawEntity(Entity entity, Shader shader, int location)
+	public void drawEntity(Entity entity, OldShader shader, int location)
 	{
 		GL30.glBindVertexArray(vaoID);
 
