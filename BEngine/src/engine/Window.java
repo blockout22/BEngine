@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.ContextAttribs;
@@ -214,7 +215,13 @@ public class Window {
 		int month = Calendar.MONTH;
 		int day = Calendar.DAY_OF_MONTH;
 		
-		String fileName = "screenshot_" + time + "_" + day + "_" + month + "_" + year + ".png";
+//		String fileName = "screenshot_" + time + "_" + day + "_" + month + "_" + year + ".png";
+		String name = JOptionPane.showInputDialog("Screenshot Name");
+		if(name == null)
+		{
+			name = "blank";
+		}
+		String fileName = name + ".png";
 		
 		File file = new File(fileName);
 		String format = "png";

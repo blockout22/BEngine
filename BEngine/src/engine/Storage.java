@@ -44,7 +44,7 @@ public class Storage {
 		textures.add(texture);
 	}
 	
-	protected static void cleanup()
+	public static void cleanup()
 	{
 		for (int vao : vaos) {
 			GL30.glDeleteVertexArrays(vao);

@@ -28,15 +28,15 @@ public class ServerThread extends Thread{
 			out = new PrintWriter(socket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			
-			send(out);
-			recieve(in);
+			send();
+			recieve();
 		}catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
 	
-	private void send(PrintWriter out) {
+	private void send() {
 		new Thread(new Runnable() {
 			public void run() {
 				while (true) {
@@ -50,12 +50,16 @@ public class ServerThread extends Thread{
 		}).start();
 	}
 
-	private void recieve(BufferedReader in) {
+	private void recieve() {
 		new Thread(new Runnable() {
 			public void run() {
 				String input;
 				try {
 					while ((input = in.readLine()) != null) {
+						if(input.startsWith("#request-"))
+						{
+							//TODO request & send Mesh data
+						}
 						if(input.startsWith("#user"))
 						{
 							userName = input.replace("#user", "");
